@@ -1,0 +1,45 @@
+# Default values for voting-system.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: with-helm
+
+deployments:
+  postgres:
+    replicas: 1
+    containerPort: 5432
+  redis:
+    replicas: 1
+    containerPort: 6379
+  resultApp:
+    replicas: 1
+    image: kodekloud/examplevotingapp_result:v1
+    containerPort: 80
+  votingApp:
+    replicas: 1
+    image: kodekloud/examplevotingapp_vote:v1
+    containerPort: 80
+  workerApp:
+    replicas: 1
+    image: kodekloud/examplevotingapp_worker:v1
+
+envs:
+  postgres:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+    POSTGRES_HOST_AUTH_METHOD: trust
+
+services:
+  postgres:
+    port: 5432
+    targetPort: 5432
+  redis:
+    port: 6379
+    targetPort: 6379
+  resultApp:
+    port: 80
+    targetPort: 80
+    nodePort: 30007
+  votingApp:
+    port: 80
+    targetPort: 80
+    nodePort: 30006

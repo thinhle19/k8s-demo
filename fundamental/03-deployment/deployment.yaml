@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: nginx-deployment
   labels:
-    app: nginx
+    app: nginx-deployment
 spec:
   replicas: 15
   selector:
@@ -18,9 +18,7 @@ spec:
         - name: nginx
           image: nginx
   strategy:
-    type: Recreate
+    type: RollingUpdate
     # rollingUpdate:
-    #   maxUnavailable: 1
-
-
-
+    #   maxUnavailable: 5
+    #   maxSurge: 1

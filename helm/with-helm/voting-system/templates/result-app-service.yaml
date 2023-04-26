@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: result-service
+  namespace: {{ .Values.namespace }}
+  labels:
+    name: result-service
+    app: demo-voting-app
+spec:
+  type: NodePort
+  ports:
+  - port: {{ .Values.services.resultApp.port }}
+    targetPort: {{ .Values.services.resultApp.targetPort }}
+    nodePort: {{ .Values.services.resultApp.nodePort }}
+  selector:
+    name: result-app-pod
+    app: demo-voting-app

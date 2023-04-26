@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poc-java
+  labels:
+    app: poc-java
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: poc-java
+  template:
+    metadata:
+      labels:
+        app: poc-java
+    spec:
+      containers:
+        - name: poc-java
+          image: poccontainerdtmt.azurecr.io/javapocimage:71
+      imagePullSecrets:
+        - name: dtmt-acr-secret
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
